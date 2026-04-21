@@ -3,5 +3,4 @@ WORKDIR /app
 COPY . .
 RUN pip install --no-cache-dir -e .
 RUN mkdir -p /data/palace
-RUN mempalace init /data/palace
-CMD ["tail", "-f", "/dev/null"]
+CMD ["sh", "-c", "mempalace init /data/palace --yes 2>/dev/null || true && tail -f /dev/null"]
