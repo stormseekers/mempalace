@@ -1,10 +1,12 @@
 import os
 import subprocess
 from fastapi import FastAPI, HTTPException, Header
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 
 app = FastAPI(title="MemPalace API")
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 PALACE_DIR = os.environ.get("PALACE_DIR", "/data/palace")
 API_KEY = os.environ.get("MEMPALACE_API_KEY", "changeme")
