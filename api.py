@@ -51,14 +51,14 @@ def search(q: str, top_k: int = 5, x_api_key: str = Header(...)):
     check_auth(x_api_key)
     try:
         result = subprocess.run(
-            ["mempalace", "search", q, "--top-k", str(top_k)],
+            ["mempalace", "search", q],
             capture_output=True,
             text=True,
             env={**os.environ, "MEMPALACE_DIR": PALACE_DIR},
         )
         if result.returncode != 0:
             raise HTTPException(status_code=500, detail=result.stderr)
-        return {"query": q, "results": result.stdout}
+        return {"query": q, "top_k": top_k, "results": result.stdout}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
